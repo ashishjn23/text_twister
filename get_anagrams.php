@@ -27,8 +27,32 @@ for($i = 0; $i < pow(2, strlen($myrack)); $i++){
 	}
 }
 $racks = array_unique($racks);
-print_r($racks);
+return $racks;
 };
 
-get_twist();
+function start(){
+    $racki[] = get_twist();
+    //print_r($racki);
+    $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
+    if (!$dbhandle) die ($error);
+    
+    for($i = 0; $i < 120; $i++){
+        $a = $racki[i];
+        $query = "select words from RACKS WHERE RACK='$a'";
+        $statement = $dbhandle->prepare($query);
+        $statement->execute();
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if($results != NULL){
+            print_r($results);
+        }
+    }
+    
+    
+
+    header('HTTP/1.1 200 OK');
+    header('Content-Type: application/json');
+    echo json_encode($results);
+};
+start();
+
 ?>
