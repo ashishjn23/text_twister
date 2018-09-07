@@ -30,25 +30,26 @@ return $racks;
 };
 
 function start(){
-    $racki[] = get_twist();
-    //print_r($racki[0]);
+    $racki = get_twist();
+    $words="";
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
     if (!$dbhandle) die ($error);
-    print_r($racki[0][119]);
-    echo "       words:";
+    //print_r($racki[119]);
+    //echo "<br>words:";
     for($i = 0; $i < 120; $i++){
-        $a = $racki[0][$i];
-        print_r($a);
-        $query = "select words from RACKS where RACK='$a'";
+        //print_r($racki[$i]);
+        //print_r($a);
+        $query = "select rack, words from RACKS where length >2 and RACK='$racki[$i]'";
         $statement = $dbhandle->prepare($query);
-        //$statement -> bindValue(':x',$a,SQLITE3_TEXT);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($results);
-        print_r($results[0][words]);
-        echo "     ";
+        if($results != NULL){
+            //echo $results[0];
+            $words .= $results[0];
+        }
     }
-    //header('HTTP/1.1 200 OK');
+    header('HTTP/1.1 200 OK');
+    echo $racki[119];
     //header('Content-Type: application/json');
     //echo json_encode($results);
 };
