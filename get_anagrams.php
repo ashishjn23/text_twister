@@ -12,7 +12,6 @@ function generate_rack($n){
 
 function get_twist(){
 $myrack = generate_rack(7);
-echo $myrack;
 $racks = [];
 for($i = 0; $i < pow(2, strlen($myrack)); $i++){
 	$ans = "";
@@ -32,26 +31,26 @@ return $racks;
 
 function start(){
     $racki[] = get_twist();
-    //print_r($racki);
+    //print_r($racki[0]);
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
     if (!$dbhandle) die ($error);
-    
+    print_r($racki[0][119]);
+    echo "       words:";
     for($i = 0; $i < 120; $i++){
-        $a = $racki[i];
-        $query = "select words from RACKS WHERE RACK='$a'";
+        $a = $racki[0][$i];
+        print_r($a);
+        $query = "select words from RACKS where RACK='$a'";
         $statement = $dbhandle->prepare($query);
+        //$statement -> bindValue(':x',$a,SQLITE3_TEXT);
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-        if($results != NULL){
-            print_r($results);
-        }
+        //var_dump($results);
+        print_r($results[0][words]);
+        echo "     ";
     }
-    
-    
-
-    header('HTTP/1.1 200 OK');
-    header('Content-Type: application/json');
-    echo json_encode($results);
+    //header('HTTP/1.1 200 OK');
+    //header('Content-Type: application/json');
+    //echo json_encode($results);
 };
 start();
 
