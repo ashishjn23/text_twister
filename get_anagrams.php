@@ -1,4 +1,5 @@
 <?php
+
 $ans[]=0;
 $rackf=0;
 $ctr3=0;
@@ -7,6 +8,17 @@ $ctr5=0;
 $ctr6=0;
 $ctr7=0;
 $counters[] = NULL;
+
+function initialize(){
+    $GLOBALS['ans'] = NULL;
+    $GLOBALS['rackf'] = 0;
+    $GLOBALS['ctr3'] = 0;
+    $GLOBALS['ctr4'] = 0;
+    $GLOBALS['ctr5'] = 0;
+    $GLOBALS['ctr6'] = 0;
+    $GLOBALS['ctr7'] = 0;
+    $GLOBALS['counters'] = NULL;
+};
 
 function generate_rack($n){
   $tileBag = "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ";
@@ -42,7 +54,7 @@ function start(){
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
     if (!$dbhandle) die ($error);
     $GLOBALS['rackf'] = $racki[119];
-    print_r("Rack:" . $GLOBALS['rackf'] . "<br>");
+    //print_r("Rack:" . $GLOBALS['rackf'] . "<br>");
     //echo "<br>words:";
     for($i = 0; $i < 120; $i++){
         $query = "select words from RACKS where length >2 and RACK='$racki[$i]'";
@@ -81,8 +93,19 @@ function get_counts(){
     //header('Content-Type: application/json');
     //echo json_encode($results);
 
-start();
-get_counts();
+while($ctr3 < 7 || $ctr4 < 5 || $ctr5 < 1 || $ctr6 < 1 || $ctr7 < 1){
+    initialize();
+    start();
+    get_counts();
+}
+
+
+
+
+
+$final = array('rack' => $rackf, 'counts' => $counters);
+$myJSON = json_encode($final);
+echo $myJSON
 //print_r($ans);
-//print_r($counters[2]);
+//print_r($counters);
 ?>
