@@ -1,4 +1,12 @@
 <?php
+$ans[]=0;
+$rackf=0;
+$ctr3=0;
+$ctr4=0;
+$ctr5=0;
+$ctr6=0;
+$ctr7=0;
+$counters[] = NULL;
 
 function generate_rack($n){
   $tileBag = "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ";
@@ -33,7 +41,8 @@ function start(){
     $racki = get_twist();
     $dbhandle = new PDO("sqlite:scrabble.sqlite") or die("Failed to open DB");
     if (!$dbhandle) die ($error);
-    print_r("Rack:" . $racki[119] . "<br>");
+    $GLOBALS['rackf'] = $racki[119];
+    print_r("Rack:" . $GLOBALS['rackf'] . "<br>");
     //echo "<br>words:";
     for($i = 0; $i < 120; $i++){
         $query = "select words from RACKS where length >2 and RACK='$racki[$i]'";
@@ -42,27 +51,38 @@ function start(){
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         if($results != NULL){
             $words[] = $results[0][words];
-            //print_r($temp);
-            //for($j=0;$j < count($temp);$j++){
-            //$words .= $temp[0][0];
-            //}
-            
         }
     }
     //header('HTTP/1.1 200 OK');
     for($j = 0; $j < count($words) ; $j++){
         $temp = explode("@@",$words[$j]);
         for($k = 0; $k < count($temp); $k++){
-            $ans[] = $temp[$k];
+            $GLOBALS['ans'][] = $temp[$k];
         }
     }
-    return $ans;
+};
+
+function get_counts(){
+    for($p=0; $p < count($GLOBALS['ans']) ; $p++){
+        if(strlen($GLOBALS['ans'][$p]) == 3){
+            $GLOBALS['ctr3'] += 1;
+        }elseif(strlen($GLOBALS['ans'][$p]) == 4){
+            $GLOBALS['ctr4'] += 1;
+        }elseif(strlen($GLOBALS['ans'][$p]) == 5){
+            $GLOBALS['ctr5'] += 1;
+        }elseif(strlen($GLOBALS['ans'][$p]) == 6){
+            $GLOBALS['ctr6'] += 1;
+        }elseif(strlen($GLOBALS['ans'][$p]) == 7){
+            $GLOBALS['ctr7'] += 1;
+        }
+    }
+    $GLOBALS['counters']=[$GLOBALS['ctr3'], $GLOBALS['ctr4'], $GLOBALS['ctr5'], $GLOBALS['ctr6'], $GLOBALS['ctr7']];
+};
     //header('Content-Type: application/json');
     //echo json_encode($results);
-};
-$sharray = start();
-//var_dump(explode("@@",$sharray));
 
-print_r($sharray);
-
+start();
+get_counts();
+//print_r($ans);
+//print_r($counters[2]);
 ?>
