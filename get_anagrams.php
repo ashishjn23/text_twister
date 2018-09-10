@@ -90,22 +90,30 @@ function get_counts(){
     }
     $GLOBALS['counters']=[$GLOBALS['ctr3'], $GLOBALS['ctr4'], $GLOBALS['ctr5'], $GLOBALS['ctr6'], $GLOBALS['ctr7']];
 };
-    //header('Content-Type: application/json');
-    //echo json_encode($results);
 
-while($ctr3 < 7 || $ctr4 < 5 || $ctr5 < 1 || $ctr6 < 1 || $ctr7 < 1){
-    initialize();
-    start();
-    get_counts();
+function validate(){
+    
+};
+
+ $func = $_REQUEST["q"];
+ $inputword = $_REQUEST["r"];
+if($func == "start"){
+    //while($ctr3 < 7 || $ctr4 < 5 || $ctr5 < 1 || $ctr6 < 1){
+        initialize();
+        start();
+        get_counts();
+    //}
+    $final = array('rack' => $rackf, 'counts' => $counters);
+    $myJSON = json_encode($final);
+    echo $myJSON;
+}elseif($func == "validate"){
+    if($inputword == "asdf"){
+        $res = "TRUE";
+    }else{
+        $res = "FALSE";
+    }
+    $res1 = json_encode($res);
+    echo $res1;
 }
 
-
-
-
-
-$final = array('rack' => $rackf, 'counts' => $counters);
-$myJSON = json_encode($final);
-echo $myJSON
-//print_r($ans);
-//print_r($counters);
 ?>
