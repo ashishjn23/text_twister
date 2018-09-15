@@ -34,15 +34,15 @@ function get_twist(){
 $myrack = generate_rack(7);
 $racks = [];
 for($i = 0; $i < pow(2, strlen($myrack)); $i++){
-	$ans = "";
+	$ansd = "";
 	for($j = 0; $j < strlen($myrack); $j++){
 		//if the jth digit of i is 1 then include letter
 		if (($i >> $j) % 2) {
-		  $ans .= $myrack[$j];
+		  $ansd .= $myrack[$j];
 		}
 	}
-	if (strlen($ans) > 1){
-  	    $racks[] = $ans;	
+	if (strlen($ansd) > 1){
+  	    $racks[] = $ansd;	
 	}
 }
 $racks = array_unique($racks);
@@ -107,10 +107,12 @@ if($func == "start"){
     $myJSON = json_encode($final);
     echo $myJSON;
 }elseif($func == "validate"){
-    if($inputword == "asdf"){
-        $res = "TRUE";
-    }else{
-        $res = "FALSE";
+    
+    if($inputword == "asdfa"){
+        $res = "Correct";
+    }
+    else{
+        $res = "Try Again";
     }
     $res1 = json_encode($res);
     echo $res1;

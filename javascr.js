@@ -15,7 +15,7 @@ function gettwistword(){
     };
     xhr.open("GET", "https://text-twister-ashishjn23.c9users.io/get_anagrams.php?q=start", true);
     xhr.send();
-};
+}
 
 function validate(){
     var xhr = new XMLHttpRequest();
@@ -28,13 +28,13 @@ function validate(){
             document.getElementById('result').innerHTML = "Loading...";
         }
     };
-    //+ document.getElementById("input1").value
-    var str = "https://text-twister-ashishjn23.c9users.io/get_anagrams.php?r=asdf&q=validate" ;
+    var x =  document.getElementById("input1").value
+    var str = "https://text-twister-ashishjn23.c9users.io/get_anagrams.php?r="+ x + "&q=validate";
     xhr.open("GET", str , true);
     xhr.send();
     
     //code to check if game over
-};
+}
 
 
 document.getElementById('reset').addEventListener('click', gettwistword);
