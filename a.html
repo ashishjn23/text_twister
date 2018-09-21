@@ -2,6 +2,20 @@
     <head>
     <body>
     <style>
+    
+    .button {
+    background-color: Yellow;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+    
 a[target] {
     background-color: yellow;
 }
@@ -17,18 +31,19 @@ p {
 } 
 body {
 
-    background-image: url("https://1.bp.blogspot.com/-GzHUaT4THD0/VucvI7hkQ7I/AAAAAAAAAP0/m2ahrCWyQGURnobHjjAoP_nW2ncZvtlHQ/s1600/5911_delaware_blue_hens-alternate-2009.png");
+    
      background-position: 100% 100%;
    
 }
 
 </style>
+   
     <p> <c target="_blank">Rack: <span id="ansrack"></span> </c> </p>
-    <button id="twist"> Twist word </button>
+    <button class="button" id="twist"> Twist word </button>
     <p> <a target="_top"> Words remaining are: <br>3 letter words : <span id="r3"></span><br>4 letter words : <span id="r4"></span><br>5 letter words : <span id="r5"></span><br>6 letter words : <span id="r6"></span><br>7 letter words : <span id="r7"> </span> </a> </p>
-    <button id="reset"> Reset Game </button>
+    <button class="button" id="reset"> Reset Game </button>
     <input type="text" id="input1">
-    <button id="check"> Check </button>
+    <button class="button" id="check"> Check </button>
     <br>
     <p id=result>!</p>
   <!--  <p>-----------------------</p> -->
@@ -36,5 +51,6 @@ body {
     <script src="javascr.js"></script>
     </head>
     <body onload="gettwistword()">
+
 </body>
 </html>

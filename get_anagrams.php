@@ -2,7 +2,7 @@
 
 $ans;
 $rackf;
-$counters;
+$counters = array(0,0,0,0,0);
 
 function initialize(){
     $GLOBALS['$ans'] = NULL;
@@ -75,8 +75,8 @@ function get_counts($ans){
     for($p=0; $p < count($ans) ; $p++){
         $GLOBALS['counters'][strlen($ans[$p]) - 3] += 1;
     }
-    if($GLOBALS['counters'][0] > 1 ){
-        $GLOBALS['counters'][0] = 1;
+    if($GLOBALS['counters'][0] > 7 ){
+        $GLOBALS['counters'][0] = 7;
     }
     if($GLOBALS['counters'][1] > 5 ){
         $GLOBALS['counters'][1] = 5;
@@ -182,21 +182,22 @@ function validate($inputword, $rack){
         echo $res1;
         break;
     case "start":
-        initialize();
-        $GLOBALS['ans'] = start($GLOBALS['ans']);
-        get_counts($GLOBALS['ans']);
-        
+        while($counters[0] < 7 || $counters[1] < 5 || $counters[2] < 1 || $counters[3] < 1){
+            initialize();
+            $GLOBALS['ans'] = start($GLOBALS['ans']);
+            get_counts($GLOBALS['ans']);
+        }
         $wordstr = implode("@@",$ans);
         
         $query2 = "insert into word (rack_id, words, ctr3, ctr4, ctr5, ctr6, ctr7) values ( '$rackf' , '$wordstr' , '$counters[0]' , '$counters[1]' , '$counters[2]' , '$counters[3]' , '$counters[4]');";
         $statement = $dbhandle->prepare($query2);
         $statement->execute();
     
-        //while($counters[0] < 7 || $counters[1] < 5 || $counters[2] < 1 || $counters[3] < 1){
+        
         $final = array('rack' => $rackf, 'counts' => $counters, 'ans' => $ans);
         $myJSON = json_encode($final);
         echo $myJSON;
-        //}
+        
         break;
     case "shuffle":
         $str = str_shuffle($rackp);
