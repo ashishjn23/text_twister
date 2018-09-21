@@ -12,7 +12,7 @@ $statement->execute();
 $a1 = array(1,2,3,4,5);
 $str1 = "AEIPRST";
 $str2 = "ADE@@asdfkjashdf@@anskdjghlaskjdgh@@sdfgjhlksdjfghl";
-$query2 = "insert into word (rack_id, words, ctr3, ctr4, ctr5, ctr6, cter7) values ( '$str1' , '$str2', '$a1[0]' , '$a1[1]' , '$a1[2]' , '$a1[3]' , '$a1[4]');";
+$query2 = "insert into word (rack_id, words, ctr3, ctr4, ctr5, ctr6, ctr7) values ( '$str1' , '$str2', '$a1[0]' , '$a1[1]' , '$a1[2]' , '$a1[3]' , '$a1[4]');";
 
 $statement = $dbhandle->prepare($query2);
 $statement->execute();
