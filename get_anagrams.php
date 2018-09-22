@@ -194,7 +194,7 @@ function validate($inputword, $rack){
         $statement->execute();
     
         
-        $final = array('rack' => $rackf, 'counts' => $counters, 'ans' => $ans);
+        $final = array('rack' => $rackf, 'counts' => $counters, 'ans' => $wordstr);
         $myJSON = json_encode($final);
         echo $myJSON;
         
